@@ -12,5 +12,5 @@ public interface DepartmentRepository extends JpaRepository<DepartmentEntity, In
             "INNER JOIN FETCH dep.collegeEntity c " +
             "WHERE c.id = ?1 " +
             "ORDER BY dep.departmentName")
-    List<DepartmentEntity> getAllDepartmentsForCollege(int idCollege);
+    List<DepartmentEntity> getAllDepartmentsByCollegeId(int idCollege);
 }

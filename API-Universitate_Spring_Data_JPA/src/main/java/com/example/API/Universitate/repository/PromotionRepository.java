@@ -12,8 +12,7 @@ public interface PromotionRepository extends JpaRepository<PromotionEntity, Inte
             "INNER JOIN FETCH p.educationalOfferEntity eo " +
             "WHERE eo.id = ?1 " +
             "ORDER BY p.startYear")
-    List<PromotionEntity> getAllPromotionsForEducationalOffer(int idEducOffer);
-
+    List<PromotionEntity> getAllPromotionsByEducationalOfferId(int idEducOffer);
 
     @Query("FROM PromotionEntity p " +
             "INNER JOIN FETCH p.educationalOfferEntity eo " +

@@ -11,5 +11,5 @@ public interface CourseRepository extends JpaRepository<CursEntity, Integer> {
     @Query("FROM CursEntity c " +
             "INNER JOIN FETCH c.professorEntity p " +
             "WHERE p.id = ?1")
-    List<CursEntity> getAllCoursesForProfessor(int idProfessor);
+    List<CursEntity> getAllCoursesByProfessorId(int idProfessor);
 }

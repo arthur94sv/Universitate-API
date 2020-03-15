@@ -39,7 +39,7 @@ public interface StudentRepository extends JpaRepository<StudentEntity, Integer>
             "INNER JOIN FETCH ps.repartition " +
             "WHERE ps.id.promotionId = ?1 " +
             "ORDER by s.nume, s.prenume")
-    Optional<List<StudentEntity>> getStudentsForPromotion(int idPromotion);
+    Optional<List<StudentEntity>> getStudentsByPromotionId(int idPromotion);
 
     @Modifying
     @Transactional

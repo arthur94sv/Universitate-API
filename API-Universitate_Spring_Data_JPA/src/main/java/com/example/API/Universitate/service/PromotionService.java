@@ -37,7 +37,7 @@ public class PromotionService {
 
     public List<DisplayPromotionDTO> getPromotionsForEducationalOffer(int idEducOffer) {
         if (educationalOfferRepository.existsById(idEducOffer)) {
-            List<PromotionEntity> promotions = promotionRepository.getAllPromotionsForEducationalOffer(idEducOffer);
+            List<PromotionEntity> promotions = promotionRepository.getAllPromotionsByEducationalOfferId(idEducOffer);
             return promotions.stream()
                     .map(promotionEntity -> promotionMapper.toDisplayPromotionDTO(promotionEntity))
                     .collect(Collectors.toList());

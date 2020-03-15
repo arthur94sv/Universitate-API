@@ -30,7 +30,7 @@ public class CourseService {
 
     public List<DisplayCurseDTO> getAllCoursesForProfessor(int idProfessor) {
         if (professorRepository.existsById(idProfessor)) {
-            List<CursEntity> courses = courseRepository.getAllCoursesForProfessor(idProfessor);
+            List<CursEntity> courses = courseRepository.getAllCoursesByProfessorId(idProfessor);
             return courses.stream()
                     .map(cursEntity -> cursMapper.toDisplayCursDTO(cursEntity))
                     .collect(Collectors.toList());

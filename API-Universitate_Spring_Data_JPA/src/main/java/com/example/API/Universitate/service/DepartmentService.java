@@ -33,7 +33,7 @@ public class DepartmentService {
 
     public List<DisplayDepartmentDTO> getDepartmentsForColleges(int idCollege) {
         if (collegeRepository.existsById(idCollege)) {
-            List<DepartmentEntity> departments = departmentRepository.getAllDepartmentsForCollege(idCollege);
+            List<DepartmentEntity> departments = departmentRepository.getAllDepartmentsByCollegeId(idCollege);
             return departments.stream()
                     .map(departmentEntity -> departmentMapper.toDisplayDepartmentDTO(departmentEntity))
                     .collect(Collectors.toList());

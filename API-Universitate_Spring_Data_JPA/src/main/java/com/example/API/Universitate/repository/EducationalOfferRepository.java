@@ -12,5 +12,5 @@ public interface EducationalOfferRepository extends JpaRepository<EducationalOff
             "INNER JOIN FETCH eo.educationLevel " +
             "WHERE eo.collegeEntity.id = ?1 " +
             "ORDER BY eo.educationLevel.id, eo.name")
-    List<EducationalOfferEntity> getEducationalOffersForCollege(int idCollege);
+    List<EducationalOfferEntity> getEducationalOffersByCollegeId(int idCollege);
 }

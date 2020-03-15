@@ -41,7 +41,7 @@ public class ProfessorService {
 
     public List<DisplayProfessorForCollegeDTO> getAllProfessorForCollege(int idCollege) {
         if (collegeRepository.existsById(idCollege)) {
-            List<ProfessorEntity> professors = professorRepository.getAllProfessorForCollege(idCollege);
+            List<ProfessorEntity> professors = professorRepository.getAllProfessorsByCollegeId(idCollege);
             return professors.stream()
                     .map(professorEntity -> professorMapper.toDisplayProfessorForCollegeDTO(professorEntity))
                     .collect(Collectors.toList());

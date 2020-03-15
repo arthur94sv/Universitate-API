@@ -38,7 +38,7 @@ public class EducationalOfferService {
 
     public List<DisplayEducationalOfferDTO> getEducationalOffersForCollege(int idCollege) {
         if (collegeRepository.existsById(idCollege)) {
-            List<EducationalOfferEntity> educationalOffers = educationalOfferRepository.getEducationalOffersForCollege(idCollege);
+            List<EducationalOfferEntity> educationalOffers = educationalOfferRepository.getEducationalOffersByCollegeId(idCollege);
             return educationalOffers.stream()
                     .map(educationalOffer -> educationalOfferMapper.toDisplayEducationalOfferDTO(educationalOffer))
                     .collect(Collectors.toList());

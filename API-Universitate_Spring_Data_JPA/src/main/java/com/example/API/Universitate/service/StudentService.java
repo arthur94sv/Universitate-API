@@ -58,7 +58,7 @@ public class StudentService {
             }
 
     public List<DisplayStudentForPromotionDTO> getStudentsForPromotion(int idPromotion) {
-        List<StudentEntity> listOfStudentEntities = studentRepository.getStudentsForPromotion(idPromotion)
+        List<StudentEntity> listOfStudentEntities = studentRepository.getStudentsByPromotionId(idPromotion)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Nu exista promite cu id-ul: " + idPromotion));
         return listOfStudentEntities.stream()
                 .map(studentEntity -> studentMapper.toDisplayStudentForPromotionDTO(studentEntity))
