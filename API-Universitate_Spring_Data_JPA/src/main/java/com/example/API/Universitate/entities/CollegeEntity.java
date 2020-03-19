@@ -3,7 +3,6 @@ package com.example.API.Universitate.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,24 +10,13 @@ import java.util.List;
 @Table(name = "facultate")
 public class CollegeEntity {
     @Id
-    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "facultate-gen")
     @SequenceGenerator(name = "facultate-gen", sequenceName = "pk_facultate", allocationSize = 1)
     private Integer id;
-
-    @NotNull(message = "Numele facultatii este obligatoriu de introdus")
-    @Column(name = "nume")
     private String nume;
-
-    @Column(name = "strada")
     private String strada;
-
-    @Column(name = "nr")
     private Integer nr;
-
-    @Column(name = "telefon")
     private String telefon;
-
 
     @OneToMany(mappedBy = "collegeEntity", fetch = FetchType.LAZY)
     @JsonIgnore

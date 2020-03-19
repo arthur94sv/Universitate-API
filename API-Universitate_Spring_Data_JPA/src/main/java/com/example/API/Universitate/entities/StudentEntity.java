@@ -12,21 +12,15 @@ import java.util.Objects;
 @Table(name = "student")
 public class StudentEntity {
     @Id
-    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "student-gen")
     @SequenceGenerator(name = "student-gen", sequenceName = "pk_student", allocationSize = 1)
     private Integer id;
-
-    @Column(name = "nume")
     private String nume;
-
-    @Column(name = "prenume")
     private String prenume;
-
-    @Column(name = "email")
     private String email;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "studentEntity", cascade = {CascadeType.REMOVE, CascadeType.PERSIST})
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "studentEntity",
+            cascade = {CascadeType.REMOVE, CascadeType.PERSIST})
     private List<PromotionStudentEntity> promotionStudentEntities;
 
     public StudentEntity() {

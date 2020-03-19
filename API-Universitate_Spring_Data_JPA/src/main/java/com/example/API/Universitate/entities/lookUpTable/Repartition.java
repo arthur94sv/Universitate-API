@@ -10,11 +10,9 @@ import java.util.Objects;
 @Table(name = "repartitie")
 public class Repartition {
     @Id
-    @Column(name = "id")
     private Integer id;
 
     @Column(name = "repartitie")
-
     private String repartition;
 
     public Integer getId() {
@@ -32,6 +30,5 @@ public class Repartition {
     public void setRepartition(String repartition) {
         this.repartition = repartition;
     }
-
 
 }

@@ -8,7 +8,6 @@ import javax.persistence.*;
 @Table(name = "curs")
 public class CursEntity {
     @Id
-    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "curs-gen")
     @SequenceGenerator(name = "curs-gen", sequenceName = "pk_curs", allocationSize = 1)
     private Integer id;

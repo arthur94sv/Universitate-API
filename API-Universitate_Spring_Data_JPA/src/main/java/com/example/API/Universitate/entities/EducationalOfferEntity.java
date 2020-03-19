@@ -10,7 +10,6 @@ import java.util.List;
 @Table(name = "oferta_educationala")
 public class EducationalOfferEntity {
     @Id
-    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "oferta-educ-gen")
     @SequenceGenerator(name = "oferta-educ-gen", sequenceName = "pk_oferta_educationala", allocationSize = 1)
     private Integer id;

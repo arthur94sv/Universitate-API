@@ -9,7 +9,6 @@ import javax.persistence.Table;
 @Table(name = "ciclu_studii")
 public class EducationLevel {
     @Id
-    @Column(name = "id")
     private Integer id;
 
     @Column(name = "nume")
