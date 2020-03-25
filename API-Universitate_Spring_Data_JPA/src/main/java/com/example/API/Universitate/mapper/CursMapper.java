@@ -1,8 +1,8 @@
 package com.example.API.Universitate.mapper;
 
-import com.example.API.Universitate.dto.curs.DisplayCurseDTO;
-import com.example.API.Universitate.dto.curs.CreateCurseDTO;
-import com.example.API.Universitate.entities.CursEntity;
+import com.example.API.Universitate.dto.course.DisplayCourseDTO;
+import com.example.API.Universitate.dto.course.CreateCourseDTO;
+import com.example.API.Universitate.entities.CourseEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -10,9 +10,9 @@ import org.mapstruct.Mapping;
 public interface CursMapper {
 
     @Mapping(target = "professorEntity", ignore = true)
-    CursEntity toEntity(CreateCurseDTO createCurseDTO);
+    CourseEntity toEntity(CreateCourseDTO createCourseDTO);
 
 
-    DisplayCurseDTO toDisplayCursDTO(CursEntity cursEntity);
+    DisplayCourseDTO toDisplayCursDTO(CourseEntity courseEntity);
 
 }

@@ -1,7 +1,6 @@
 package com.example.API.Universitate.entities;
 
 import com.example.API.Universitate.entities.lookUpTable.Grad;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.List;
@@ -26,8 +25,7 @@ public class ProfessorEntity {
     private DepartmentEntity departmentEntity;
 
     @OneToMany(mappedBy = "professorEntity", fetch = FetchType.LAZY)
-    @JsonIgnore
-    private List<CursEntity> listOfCurses;
+    private List<CourseEntity> listOfCurses;
 
 
     public Integer getId() {
@@ -79,11 +77,11 @@ public class ProfessorEntity {
     }
 
 
-    public List<CursEntity> getListOfCurses() {
+    public List<CourseEntity> getListOfCurses() {
         return listOfCurses;
     }
 
-    public void setListOfCurses(List<CursEntity> listOfCurses) {
+    public void setListOfCurses(List<CourseEntity> listOfCurses) {
         this.listOfCurses = listOfCurses;
     }
 }

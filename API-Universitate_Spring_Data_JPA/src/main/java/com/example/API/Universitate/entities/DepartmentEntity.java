@@ -1,7 +1,5 @@
 package com.example.API.Universitate.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -21,7 +19,6 @@ public class DepartmentEntity {
     private CollegeEntity collegeEntity;
 
     @OneToMany(mappedBy = "departmentEntity", fetch = FetchType.LAZY)
-    @JsonIgnore
     private List<ProfessorEntity> listOfProfessorEntities;
 
     public Integer getId() {

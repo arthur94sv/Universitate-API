@@ -1,12 +1,10 @@
 package com.example.API.Universitate.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 
 @Entity
 @Table(name = "curs")
-public class CursEntity {
+public class CourseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "curs-gen")
     @SequenceGenerator(name = "curs-gen", sequenceName = "pk_curs", allocationSize = 1)
@@ -17,7 +15,6 @@ public class CursEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_profesor")
-    @JsonIgnore
     private ProfessorEntity professorEntity;
 
     public Integer getId() {

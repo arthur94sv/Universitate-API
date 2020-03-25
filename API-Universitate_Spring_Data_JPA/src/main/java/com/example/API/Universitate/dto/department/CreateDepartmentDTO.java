@@ -6,3 +6,4 @@ public class CreateDepartmentDTO {
     @NotNull(message = "Numele departamentului este obligatoriu")
     public String departmentName;
 }
+

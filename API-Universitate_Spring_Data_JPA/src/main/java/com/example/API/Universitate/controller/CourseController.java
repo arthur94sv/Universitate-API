@@ -1,8 +1,8 @@
 package com.example.API.Universitate.controller;
 
-import com.example.API.Universitate.dto.curs.CreateCurseDTO;
-import com.example.API.Universitate.dto.curs.DisplayCurseDTO;
-import com.example.API.Universitate.dto.curs.UpdateCourseDTO;
+import com.example.API.Universitate.dto.course.CreateCourseDTO;
+import com.example.API.Universitate.dto.course.DisplayCourseDTO;
+import com.example.API.Universitate.dto.course.UpdateCourseDTO;
 import com.example.API.Universitate.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,14 +23,14 @@ public class CourseController {
     }
 
     @GetMapping("/professors/{id}/courses")
-    public List<DisplayCurseDTO> getAllCoursesForProfessor(@PathVariable("id") int idProfessor) {
+    public List<DisplayCourseDTO> getAllCoursesForProfessor(@PathVariable("id") int idProfessor) {
         return courseService.getAllCoursesForProfessor(idProfessor);
     }
 
     @PostMapping("/professors/{id}/courses")
     public ResponseEntity addCourse(@PathVariable("id") int idProfessor,
-                                    @RequestBody @Valid CreateCurseDTO createCurseDTO) {
-        courseService.addCourse(idProfessor, createCurseDTO);
+                                    @RequestBody @Valid CreateCourseDTO createCourseDTO) {
+        courseService.addCourse(idProfessor, createCourseDTO);
         return new ResponseEntity(HttpStatus.CREATED);
     }
 

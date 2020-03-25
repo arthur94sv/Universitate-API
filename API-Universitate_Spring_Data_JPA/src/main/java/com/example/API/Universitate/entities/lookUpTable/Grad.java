@@ -1,6 +1,5 @@
 package com.example.API.Universitate.entities.lookUpTable;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -28,3 +27,4 @@ public class Grad {
         this.grad = grad;
     }
 }
+

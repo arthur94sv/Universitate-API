@@ -19,7 +19,6 @@ public class CollegeEntity {
     private String telefon;
 
     @OneToMany(mappedBy = "collegeEntity", fetch = FetchType.LAZY)
-    @JsonIgnore
     private List<DepartmentEntity> listOfDepartmentEntities;
 
 

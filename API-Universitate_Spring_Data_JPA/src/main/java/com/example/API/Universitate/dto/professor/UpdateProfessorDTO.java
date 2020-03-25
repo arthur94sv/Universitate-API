@@ -6,15 +6,15 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
 public class UpdateProfessorDTO {
-    @NotNull(message = "Numele profesorului este obligatoriu")
+    @NotNull(message = "Numele profesorului nu are voie sa fie null")
     public String nume;
 
-    @NotNull(message = "Prenumele profesorului este obligatoriu")
+    @NotNull(message = "Prenumele profesorului nu are voie sa fie null")
     public String prenume;
 
     @Email(message = "Format email invalid")
     public String email;
 
-    @NotNull(message = "Gradul este obligatoriu")
+    @NotNull(message = "Gradul nu are voie sa fie null")
     public Grad grad;
 }
