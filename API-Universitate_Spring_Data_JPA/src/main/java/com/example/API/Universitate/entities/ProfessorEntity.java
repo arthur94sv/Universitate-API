@@ -16,11 +16,11 @@ public class ProfessorEntity {
     private String prenume;
     private String email;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_grad")
     private Grad grad;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_departament")
     private DepartmentEntity departmentEntity;
 
