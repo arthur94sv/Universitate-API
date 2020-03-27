@@ -1,9 +1,9 @@
 package com.example.API.Universitate.dto.department;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 
 public class CreateDepartmentDTO {
-    @NotNull(message = "Numele departamentului este obligatoriu")
+    @NotBlank(message = "Numele departamentului este obligatoriu")
     public String departmentName;
 }
 

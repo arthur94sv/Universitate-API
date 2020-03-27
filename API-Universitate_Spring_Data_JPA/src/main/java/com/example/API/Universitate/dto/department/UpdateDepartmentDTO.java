@@ -1,8 +1,8 @@
 package com.example.API.Universitate.dto.department;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 
 public class UpdateDepartmentDTO {
-    @NotNull(message = "Numele departamentului nu are voie sa fie null")
+    @NotBlank(message = "Numele departamentului nu are voie sa fie gol")
     public String departmentName;
 }

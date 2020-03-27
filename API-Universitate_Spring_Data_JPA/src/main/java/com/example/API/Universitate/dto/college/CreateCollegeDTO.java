@@ -1,11 +1,13 @@
 package com.example.API.Universitate.dto.college;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
 
 public class CreateCollegeDTO {
-    @NotNull(message = "Numele facultatii este obligatoriu de introdus")
+    @NotBlank(message = "Numele facultatii este obligatoriu de introdus")
     public String nume;
     public String strada;
+    @Positive
     public Integer nr;
     public String telefon;
 }
