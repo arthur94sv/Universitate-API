@@ -5,11 +5,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CourseRepository extends JpaRepository<CourseEntity, Integer> {
 
     @Query("FROM CourseEntity c " +
-            "INNER JOIN c.professorEntity p " +
+            "INNER JOIN FETCH c.professorEntity p " +
             "WHERE p.id = ?1")
-    List<CourseEntity> getAllCoursesByProfessorId(int idProfessor);
+    Optional<List<CourseEntity>> findCoursesByProfessorId(int idProfessor);
 }

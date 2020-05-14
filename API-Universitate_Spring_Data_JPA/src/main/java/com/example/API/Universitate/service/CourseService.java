@@ -31,13 +31,11 @@ public class CourseService {
     }
 
     public List<DisplayCourseDTO> getAllCoursesForProfessor(int idProfessor) {
-        if (professorRepository.existsById(idProfessor)) {
-            List<CourseEntity> courses = courseRepository.getAllCoursesByProfessorId(idProfessor);
-            return courses.stream()
-                    .map(cursEntity -> cursMapper.toDisplayCursDTO(cursEntity))
-                    .collect(Collectors.toList());
-        } else
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Nu a fost gasit un profesor cu id-ul: " + idProfessor);
+        List<CourseEntity> courses = courseRepository.findCoursesByProfessorId(idProfessor)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Nu a fost gasit un profesor cu id-ul: " + idProfessor));
+        return courses.stream()
+                .map(cursEntity -> cursMapper.toDisplayCursDTO(cursEntity))
+                .collect(Collectors.toList());
     }
 
     public void addCourse(int idProfessor, CreateCourseDTO createCourseDTO) {

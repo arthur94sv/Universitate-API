@@ -31,7 +31,6 @@ public class PromotionEntity {
     private int nrLocuriTaxa;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "promotionEntity")
-    @JsonIgnore
     private List<PromotionStudentEntity> promotionStudentEntity;
 
     public Integer getId() {

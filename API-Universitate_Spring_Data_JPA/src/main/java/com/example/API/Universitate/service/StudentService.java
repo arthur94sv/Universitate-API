@@ -14,12 +14,14 @@ import com.example.API.Universitate.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class StudentService {
     private StudentRepository studentRepository;
     private PromotionRepository promotionRepository;
@@ -58,7 +60,7 @@ public class StudentService {
             }
 
     public List<DisplayStudentForPromotionDTO> getStudentsForPromotion(int idPromotion) {
-        List<StudentEntity> listOfStudentEntities = studentRepository.getStudentsByPromotionId(idPromotion)
+        List<StudentEntity> listOfStudentEntities = studentRepository.findStudentsByPromotionId(idPromotion)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Nu exista promite cu id-ul: " + idPromotion));
         return listOfStudentEntities.stream()
                 .map(studentEntity -> studentMapper.toDisplayStudentForPromotionDTO(studentEntity))

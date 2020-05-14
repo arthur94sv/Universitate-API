@@ -24,29 +24,31 @@ public class PromotionController {
     }
 
     @GetMapping("/educationalOffers/{id}/promotions")
-    public List<DisplayPromotionDTO> getPromotionsForEducationalOffer(@PathVariable("id") int idEducOffer) {
-        return promotionService.getPromotionsForEducationalOffer(idEducOffer);
+    public ResponseEntity<List<DisplayPromotionDTO>> getPromotionsForEducationalOffer(@PathVariable("id") int idEducOffer) {
+        List<DisplayPromotionDTO> displayPromotionDTOList = promotionService.getPromotionsForEducationalOffer(idEducOffer);
+        return new ResponseEntity<>(displayPromotionDTOList, HttpStatus.OK);
     }
 
     @GetMapping("colleges/{id}/promotions")
-    public List<DisplayPromotionDTO> getPromotionsForCollege(@PathVariable("id") int idCollege,
-                                                             @RequestParam(name = "idEducLevel", required = false) Integer idEducLevel,
-                                                             @RequestParam(name = "endYear", required = false) Integer endYear) {
-        return promotionService.getPromotionsForCollege(idCollege, idEducLevel, endYear);
+    public ResponseEntity<List<DisplayPromotionDTO>> getPromotionsForCollege(@PathVariable("id") int idCollege,
+                                                                             @RequestParam(name = "idEducLevel", required = false) Integer idEducLevel,
+                                                                             @RequestParam(name = "endYear", required = false) Integer endYear) {
+        List<DisplayPromotionDTO> displayPromotionDTOList = promotionService.getPromotionsForCollege(idCollege, idEducLevel, endYear);
+        return new ResponseEntity<>(displayPromotionDTOList, HttpStatus.OK);
     }
 
     @PostMapping("/educationalOffers/{id}/promotions")
-    public ResponseEntity addPromotionToEducOffer(@PathVariable("id") int idEducOffer,
+    public ResponseEntity<Void> addPromotionToEducOffer(@PathVariable("id") int idEducOffer,
                                                   @RequestBody @Valid CreatePromotionDTO createPromotionDTO) {
         promotionService.addPromotionToEducOffer(idEducOffer, createPromotionDTO);
-        return new ResponseEntity(HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping("/promotions/{id}")
-    public ResponseEntity updatePromotion(@PathVariable("id") int idPromotion,
+    public ResponseEntity<Void> updatePromotion(@PathVariable("id") int idPromotion,
                                           @RequestBody @Valid UpdatePromotionDTO updatePromotionDTO) {
         promotionService.updatePromotion(idPromotion, updatePromotionDTO);
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 }

@@ -15,7 +15,7 @@ public interface ProfessorRepository extends JpaRepository<ProfessorEntity, Inte
             "INNER JOIN FETCH prf.departmentEntity dep " +
             "WHERE dep.collegeEntity.id = ?1 " +
             "ORDER BY prf.nume, prf.prenume, dep.departmentName")
-    List<ProfessorEntity> getAllProfessorsByCollegeId(int idCollege);
+    Optional<List<ProfessorEntity>> findProfessorsByCollegeId(int idCollege);
 
     @Query("FROM ProfessorEntity p " +
             "INNER JOIN FETCH p.grad " +

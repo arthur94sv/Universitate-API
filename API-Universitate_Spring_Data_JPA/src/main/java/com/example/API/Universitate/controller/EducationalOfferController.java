@@ -24,22 +24,23 @@ public class EducationalOfferController {
     }
 
     @GetMapping("/colleges/{id}/educationalOffers")
-    public List<DisplayEducationalOfferDTO> getEducationalOffersForCollege(@PathVariable("id") int idCollege) {
-        return educationalOfferService.getEducationalOffersForCollege(idCollege);
+    public ResponseEntity<List<DisplayEducationalOfferDTO>> getEducationalOffersForCollege(@PathVariable("id") int idCollege) {
+        List<DisplayEducationalOfferDTO> displayEducationalOfferDTOList = educationalOfferService.getEducationalOffersForCollege(idCollege);
+        return new ResponseEntity<>(displayEducationalOfferDTOList, HttpStatus.OK);
     }
 
     @PostMapping("/colleges/{id}/educationalOffers")
-    public ResponseEntity addEducationalOffer(@PathVariable("id") int idCollege,
-                                              @RequestBody @Valid CreateEducationalOfferDTO createEducationalOfferDTO) {
+    public ResponseEntity<Void> addEducationalOffer(@PathVariable("id") int idCollege,
+                                                    @RequestBody @Valid CreateEducationalOfferDTO createEducationalOfferDTO) {
         educationalOfferService.addEducationalOffer(idCollege, createEducationalOfferDTO);
-        return new ResponseEntity(HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping("/educationalOffers/{id}")
-    public ResponseEntity updateEducationalOffer(@PathVariable("id") int idEducOffer,
-                                                 @RequestBody @Valid UpdateEducationalOfferDTO updateEducationalOfferDTO) {
+    public ResponseEntity<Void> updateEducationalOffer(@PathVariable("id") int idEducOffer,
+                                                       @RequestBody @Valid UpdateEducationalOfferDTO updateEducationalOfferDTO) {
         educationalOfferService.updateEducationalOffer(idEducOffer, updateEducationalOfferDTO);
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 }

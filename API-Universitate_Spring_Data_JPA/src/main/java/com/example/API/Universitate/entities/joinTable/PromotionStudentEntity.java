@@ -24,7 +24,6 @@ public class PromotionStudentEntity {
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "id_student")
     @MapsId("studentId")
-    @JsonIgnore
     private StudentEntity studentEntity;
 
     @OneToOne(fetch = FetchType.EAGER)

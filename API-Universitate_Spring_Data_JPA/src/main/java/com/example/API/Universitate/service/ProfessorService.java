@@ -22,31 +22,26 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class ProfessorService {
-    private CollegeRepository collegeRepository;
     private ProfessorRepository professorRepository;
     private DepartmentRepository departmentRepository;
 
     private ProfessorMapperImpl professorMapper;
 
     @Autowired
-    public ProfessorService(CollegeRepository collegeRepository,
-                            ProfessorRepository professorRepository,
+    public ProfessorService(ProfessorRepository professorRepository,
                             DepartmentRepository departmentRepository,
                             ProfessorMapperImpl professorMapper) {
-        this.collegeRepository = collegeRepository;
         this.professorRepository = professorRepository;
         this.departmentRepository = departmentRepository;
         this.professorMapper = professorMapper;
     }
 
     public List<DisplayProfessorForCollegeDTO> getAllProfessorForCollege(int idCollege) {
-        if (collegeRepository.existsById(idCollege)) {
-            List<ProfessorEntity> professors = professorRepository.getAllProfessorsByCollegeId(idCollege);
-            return professors.stream()
-                    .map(professorEntity -> professorMapper.toDisplayProfessorForCollegeDTO(professorEntity))
-                    .collect(Collectors.toList());
-        } else
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Nu a fost gasita o facultate cu id-ul: " + idCollege);
+        List<ProfessorEntity> professors = professorRepository.findProfessorsByCollegeId(idCollege)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Nu a fost gasita o facultate cu id-ul: " + idCollege));
+        return professors.stream()
+                .map(professorEntity -> professorMapper.toDisplayProfessorForCollegeDTO(professorEntity))
+                .collect(Collectors.toList());
     }
 
     public List<DisplayProfessorDTO> searchProfessor(String nume, String prenume) {
@@ -56,21 +51,21 @@ public class ProfessorService {
             return searchProfessorByNumeAndPrenume(nume, prenume);
     }
 
-            private List<DisplayProfessorDTO> searchProfessorByNume(String name) {
-                List<ProfessorEntity> professors = professorRepository.findByNume(name)
-                        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Nu exista profesori cu numele " + name));
-                return professors.stream()
-                        .map(professorEntity -> professorMapper.toDisplayProfessorDTO(professorEntity))
-                        .collect(Collectors.toList());
-            }
+    private List<DisplayProfessorDTO> searchProfessorByNume(String name) {
+        List<ProfessorEntity> professors = professorRepository.findByNume(name)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Nu exista profesori cu numele " + name));
+        return professors.stream()
+                .map(professorEntity -> professorMapper.toDisplayProfessorDTO(professorEntity))
+                .collect(Collectors.toList());
+    }
 
-            private List<DisplayProfessorDTO> searchProfessorByNumeAndPrenume(String name, String prenume) {
-                List<ProfessorEntity> professors = professorRepository.findByNumeAndPrenume(name, prenume)
-                        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Nu exista profesori cu numele " + name + " si prenumele " + prenume));
-                return professors.stream()
-                        .map(professorEntity -> professorMapper.toDisplayProfessorDTO(professorEntity))
-                        .collect(Collectors.toList());
-            }
+    private List<DisplayProfessorDTO> searchProfessorByNumeAndPrenume(String name, String prenume) {
+        List<ProfessorEntity> professors = professorRepository.findByNumeAndPrenume(name, prenume)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Nu exista profesori cu numele " + name + " si prenumele " + prenume));
+        return professors.stream()
+                .map(professorEntity -> professorMapper.toDisplayProfessorDTO(professorEntity))
+                .collect(Collectors.toList());
+    }
 
     public void updateProfessor(int idProfessor, UpdateProfessorDTO updateProfessorDTO) {
         if (professorRepository.existsById(idProfessor)) {
@@ -106,6 +101,5 @@ public class ProfessorService {
         else
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Profesorul cu id-ul: " + idProfessor + " nu a fost gasit");
     }
-
 
 }

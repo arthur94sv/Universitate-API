@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface EducationalOfferRepository extends JpaRepository<EducationalOfferEntity, Integer> {
 
@@ -12,5 +13,5 @@ public interface EducationalOfferRepository extends JpaRepository<EducationalOff
             "INNER JOIN FETCH eo.educationLevel " +
             "WHERE eo.collegeEntity.id = ?1 " +
             "ORDER BY eo.educationLevel.id, eo.name")
-    List<EducationalOfferEntity> getEducationalOffersByCollegeId(int idCollege);
+    Optional<List<EducationalOfferEntity>> getEducationalOffersByCollegeId(int idCollege);
 }

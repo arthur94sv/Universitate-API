@@ -19,7 +19,6 @@ public class EducationalOfferEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_facultate")
-    @JsonIgnore
     private CollegeEntity collegeEntity;
 
     @OneToMany(mappedBy = "educationalOfferEntity", fetch = FetchType.LAZY)

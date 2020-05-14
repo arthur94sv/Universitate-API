@@ -24,40 +24,42 @@ public class StudentController {
     }
 
     @GetMapping("/students")
-    public List<DisplayStudentDTO> searchStudent(@RequestParam(value = "nume", required = true) String nume,
+    public ResponseEntity<List<DisplayStudentDTO>> searchStudent(@RequestParam(value = "nume", required = true) String nume,
                                                  @RequestParam(value = "prenume", required = false) String prenume) {
-        return studentService.searchStudent(nume, prenume);
+        List<DisplayStudentDTO> displayStudentDTOList = studentService.searchStudent(nume, prenume);
+        return new ResponseEntity<>(displayStudentDTOList, HttpStatus.OK);
     }
 
     @GetMapping("/promotions/{id}/students")
-    public List<DisplayStudentForPromotionDTO> getStudentsForPromotion(@PathVariable("id") int idPromotion) {
-        return studentService.getStudentsForPromotion(idPromotion);
-    }
-
-    @PutMapping("/students/{id}")
-    public ResponseEntity updateStudent(@PathVariable("id") int idStudent,
-                                        @RequestBody @Valid UpdateStudentDTO updateStudentDTO) {
-        studentService.updateStudent(idStudent, updateStudentDTO);
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
-    }
-
-    @DeleteMapping("/students/{id}")
-    public ResponseEntity deleteStudent(@PathVariable("id") int idStudent) {
-        studentService.deleteStudent(idStudent);
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
-    }
-
-    @DeleteMapping("/promotions/{idPromotion}/students/{idStudent}")
-    public ResponseEntity deleteStudentForPromotion(@PathVariable("idPromotion") int idPromotion, @PathVariable("idStudent") int idStudent) {
-        studentService.deleteStudentFromPromotion(idPromotion, idStudent);
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    public ResponseEntity<List<DisplayStudentForPromotionDTO>> getStudentsForPromotion(@PathVariable("id") int idPromotion) {
+        List<DisplayStudentForPromotionDTO> displayStudentForPromotionDTOList = studentService.getStudentsForPromotion(idPromotion);
+        return new ResponseEntity<>(displayStudentForPromotionDTOList, HttpStatus.OK);
     }
 
     @PostMapping("/promotions/{id}/students")
-    public ResponseEntity addStudentToPromotion(@PathVariable("id") int idPromotion,
-                                                @RequestBody @Valid AddStudentToPromotionDTO addStudentToPromotionDTO) {
+    public ResponseEntity<Void> addStudentToPromotion(@PathVariable("id") int idPromotion,
+                                                      @RequestBody @Valid AddStudentToPromotionDTO addStudentToPromotionDTO) {
         studentService.addStudentToPromotion(idPromotion, addStudentToPromotionDTO);
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PutMapping("/students/{id}")
+    public ResponseEntity<Void> updateStudent(@PathVariable("id") int idStudent,
+                                        @RequestBody @Valid UpdateStudentDTO updateStudentDTO) {
+        studentService.updateStudent(idStudent, updateStudentDTO);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @DeleteMapping("/students/{id}")
+    public ResponseEntity<Void> deleteStudent(@PathVariable("id") int idStudent) {
+        studentService.deleteStudent(idStudent);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @DeleteMapping("/promotions/{idPromotion}/students/{idStudent}")
+    public ResponseEntity<Void> deleteStudentForPromotion(@PathVariable("idPromotion") int idPromotion, @PathVariable("idStudent") int idStudent) {
+        studentService.deleteStudentFromPromotion(idPromotion, idStudent);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
 

@@ -23,27 +23,28 @@ public class DepartmentController {
     }
 
     @GetMapping("/colleges/{id}/departments")
-    public List<DisplayDepartmentDTO> getCollegeDepartments(@PathVariable("id") int idCollege) {
-        return departmentService.getDepartmentsForColleges(idCollege);
+    public ResponseEntity<List<DisplayDepartmentDTO>> getCollegeDepartments(@PathVariable("id") int idCollege) {
+        List<DisplayDepartmentDTO> departmentsList = departmentService.getDepartmentsForColleges(idCollege);
+        return new ResponseEntity<>(departmentsList, HttpStatus.OK);
     }
 
     @PostMapping("/colleges/{id}/departments")
-    public ResponseEntity addDepartmentToCollege(@PathVariable("id") int idCollege,
-                                                 @RequestBody @Valid CreateDepartmentDTO createDepartmentDTO) {
+    public ResponseEntity<Void> addDepartmentToCollege(@PathVariable("id") int idCollege,
+                                                       @RequestBody @Valid CreateDepartmentDTO createDepartmentDTO) {
         departmentService.addDepartmentToCollege(idCollege, createDepartmentDTO);
-        return new ResponseEntity(HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping("/departments/{id}")
-    public ResponseEntity updateDepartment(@PathVariable("id") int idDepartment,
-                                           @RequestBody @Valid UpdateDepartmentDTO updateDepartmentDTO) {
+    public ResponseEntity<Void> updateDepartment(@PathVariable("id") int idDepartment,
+                                                 @RequestBody @Valid UpdateDepartmentDTO updateDepartmentDTO) {
         departmentService.updateDepartment(idDepartment, updateDepartmentDTO);
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @DeleteMapping("/departments/{id}")
-    public ResponseEntity deleteDepartment(@PathVariable("id") int idDepartment) {
+    public ResponseEntity<Void> deleteDepartment(@PathVariable("id") int idDepartment) {
         departmentService.deleteDepartment(idDepartment);
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

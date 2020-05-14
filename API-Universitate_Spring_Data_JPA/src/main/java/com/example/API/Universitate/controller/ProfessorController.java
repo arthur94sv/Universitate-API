@@ -25,35 +25,36 @@ public class ProfessorController {
     }
 
     @GetMapping("/colleges/{id}/professors")
-    public List<DisplayProfessorForCollegeDTO> getAllProfessorsForCollege(@PathVariable("id") int idCollege) {
-        return professorService.getAllProfessorForCollege(idCollege);
+    public ResponseEntity<List<DisplayProfessorForCollegeDTO>> getAllProfessorsForCollege(@PathVariable("id") int idCollege) {
+        List<DisplayProfessorForCollegeDTO> professorsList = professorService.getAllProfessorForCollege(idCollege);
+        return new ResponseEntity<>(professorsList, HttpStatus.OK);
     }
 
     @GetMapping("/professors")
-    public List<DisplayProfessorDTO> searchProfessor(@RequestParam(name = "nume", required = true) String nume,
-                                                     @RequestParam(name = "prenume", required = false) String prenume) {
-        return professorService.searchProfessor(nume, prenume);
-    }
-
-    @PutMapping("/professors/{id}")
-    public ResponseEntity updateProfessor(@PathVariable("id") int idProfessor,
-                                          @Valid @RequestBody UpdateProfessorDTO updateProfessorDTO) {
-        professorService.updateProfessor(idProfessor, updateProfessorDTO);
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    public ResponseEntity<List<DisplayProfessorDTO>> searchProfessor(@RequestParam(name = "nume", required = true) String nume,
+                                                                     @RequestParam(name = "prenume", required = false) String prenume) {
+        List<DisplayProfessorDTO> professorsList = professorService.searchProfessor(nume, prenume);
+        return new ResponseEntity<>(professorsList, HttpStatus.OK);
     }
 
     @PostMapping("/departments/{id}/professors")
-    public ResponseEntity addProfessor(@PathVariable("id") int idDepartment,
-                                       @RequestBody @Valid CreateProfessorDTO createProfessorDTO) {
+    public ResponseEntity<Void> addProfessor(@PathVariable("id") int idDepartment,
+                                             @RequestBody @Valid CreateProfessorDTO createProfessorDTO) {
         professorService.addProfessor(idDepartment, createProfessorDTO);
-        return new ResponseEntity(HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
 
+    @PutMapping("/professors/{id}")
+    public ResponseEntity<Void> updateProfessor(@PathVariable("id") int idProfessor,
+                                                @Valid @RequestBody UpdateProfessorDTO updateProfessorDTO) {
+        professorService.updateProfessor(idProfessor, updateProfessorDTO);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @DeleteMapping("/professors/{id}")
-    public ResponseEntity deleteProfessor(@PathVariable("id") int idProfessor) {
+    public ResponseEntity<Void> deleteProfessor(@PathVariable("id") int idProfessor) {
         professorService.deleteProfessor(idProfessor);
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 }

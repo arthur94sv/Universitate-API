@@ -34,14 +34,13 @@ public class DepartmentService {
     }
 
     public List<DisplayDepartmentDTO> getDepartmentsForColleges(int idCollege) {
-        if (collegeRepository.existsById(idCollege)) {
-            List<DepartmentEntity> departments = departmentRepository.getAllDepartmentsByCollegeId(idCollege);
-            return departments.stream()
-                    .map(departmentEntity -> departmentMapper.toDisplayDepartmentDTO(departmentEntity))
-                    .collect(Collectors.toList());
-        } else
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Departamentele nu pot fi afisate deoarece nu a fost gasita o facultate cu id-ul: " + idCollege);
+        List<DepartmentEntity> departments = departmentRepository.findDepartmentsByCollegeId(idCollege)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Departamentele nu pot fi afisate deoarece nu a fost gasita o facultate cu id-ul: " + idCollege));
+        return departments.stream()
+                .map(departmentEntity -> departmentMapper.toDisplayDepartmentDTO(departmentEntity))
+                .collect(Collectors.toList());
     }
+
 
     public void addDepartmentToCollege(int idCollege, CreateDepartmentDTO createDepartmentDTO) {
         if (collegeRepository.existsById(idCollege)) {

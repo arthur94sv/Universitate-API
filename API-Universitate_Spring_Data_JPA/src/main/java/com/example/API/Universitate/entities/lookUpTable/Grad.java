@@ -1,5 +1,4 @@
 package com.example.API.Universitate.entities.lookUpTable;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;

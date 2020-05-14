@@ -37,14 +37,12 @@ public class EducationalOfferService {
     }
 
     public List<DisplayEducationalOfferDTO> getEducationalOffersForCollege(int idCollege) {
-        if (collegeRepository.existsById(idCollege)) {
-            List<EducationalOfferEntity> educationalOffers = educationalOfferRepository.getEducationalOffersByCollegeId(idCollege);
-            return educationalOffers.stream()
-                    .map(educationalOffer -> educationalOfferMapper.toDisplayEducationalOfferDTO(educationalOffer))
-                    .collect(Collectors.toList());
-        } else
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
-                    "Ofertele educationale nu au putut fi afisate doarece nu exista o facultatea cu id-ul:" + idCollege);
+        List<EducationalOfferEntity> educationalOffers = educationalOfferRepository.getEducationalOffersByCollegeId(idCollege).
+                orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        "Ofertele educationale nu au putut fi afisate doarece nu exista o facultatea cu id-ul:" + idCollege));
+        return educationalOffers.stream()
+                .map(educationalOffer -> educationalOfferMapper.toDisplayEducationalOfferDTO(educationalOffer))
+                .collect(Collectors.toList());
     }
 
     public void addEducationalOffer(int idCollege, CreateEducationalOfferDTO createEducationalOfferDTO) {

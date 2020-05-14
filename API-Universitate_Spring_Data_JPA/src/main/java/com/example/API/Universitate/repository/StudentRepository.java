@@ -39,10 +39,9 @@ public interface StudentRepository extends JpaRepository<StudentEntity, Integer>
             "INNER JOIN FETCH ps.repartition " +
             "WHERE ps.id.promotionId = ?1 " +
             "ORDER by s.nume, s.prenume")
-    Optional<List<StudentEntity>> getStudentsByPromotionId(int idPromotion);
+    Optional<List<StudentEntity>> findStudentsByPromotionId(int idPromotion);
 
     @Modifying
-    @Transactional
     @Query("DELETE FROM PromotionStudentEntity ps " +
             "WHERE ps.promotionEntity.id = ?1 AND ps.studentEntity.id = ?2")
     void deleteStudentFromPromotion(int idPromotion, int idStudent);

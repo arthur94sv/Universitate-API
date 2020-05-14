@@ -23,27 +23,27 @@ public class CollegeController {
     }
 
     @GetMapping("/colleges")
-    public List<DisplayCollegeDTO> getAllColleges() {
-        return collegeService.getAllColleges();
+    public ResponseEntity<List<DisplayCollegeDTO>> getAllColleges() {
+        List<DisplayCollegeDTO> collegesList = collegeService.getAllColleges();
+        return new ResponseEntity<>(collegesList, HttpStatus.OK);
     }
 
     @PostMapping("/colleges")
-    public ResponseEntity addCollege(@RequestBody @Valid CreateCollegeDTO createCollegeDTO) {
+    public ResponseEntity<Void> addCollege(@RequestBody @Valid CreateCollegeDTO createCollegeDTO) {
         collegeService.addCollege(createCollegeDTO);
-        return new ResponseEntity(HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping("/colleges/{id}")
-    public ResponseEntity updateCollege(@PathVariable("id") int idColleges,
-                                        @RequestBody @Valid UpdateCollegeDTO updateCollegeDTO) {
+    public ResponseEntity<Void> updateCollege(@PathVariable("id") int idColleges,
+                                              @RequestBody @Valid UpdateCollegeDTO updateCollegeDTO) {
         collegeService.updateCollege(idColleges, updateCollegeDTO);
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @DeleteMapping("/colleges/{id}")
-    public ResponseEntity deleteCollege(@PathVariable("id") int idCollege) {
+    public ResponseEntity<Void> deleteCollege(@PathVariable("id") int idCollege) {
         collegeService.deleteCollege(idCollege);
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
 }
