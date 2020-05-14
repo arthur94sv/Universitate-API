@@ -102,7 +102,7 @@ public class StudentService {
 
             studentEntity.setPromotion(promotionStudentEntity);
 
-            addStudentToPromotionBasedOnRepartition(idPromotion, promotionStudentEntity.getPromotionEntity(), promotionStudentEntity.getPromotionEntity().getId(), studentEntity);
+            addStudentToPromotionBasedOnRepartition(addStudentToPromotionDTO.repartition.getId(), promotionStudentEntity.getPromotionEntity(), promotionStudentEntity.getPromotionEntity().getId(), studentEntity);
         } else
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Nu exista promotie cu id-ul: " + idPromotion);
     }
