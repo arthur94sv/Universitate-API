@@ -4,6 +4,7 @@ import com.example.API.Universitate.dto.course.CreateCourseDTO;
 import com.example.API.Universitate.dto.course.DisplayCourseDTO;
 import com.example.API.Universitate.dto.course.UpdateCourseDTO;
 import com.example.API.Universitate.entities.CourseEntity;
+import com.example.API.Universitate.entities.ProfessorEntity;
 import com.example.API.Universitate.mapper.CursMapperImpl;
 import com.example.API.Universitate.repository.CourseRepository;
 import com.example.API.Universitate.repository.ProfessorRepository;
@@ -41,9 +42,14 @@ public class CourseService {
     public void addCourse(int idProfessor, CreateCourseDTO createCourseDTO) {
         if (professorRepository.existsById(idProfessor)) {
             CourseEntity courseEntity = cursMapper.toEntity(createCourseDTO);
+
+            ProfessorEntity professorEntity = professorRepository.getOne(idProfessor);
+            courseEntity.setProfessorEntity(professorEntity);
+
             courseRepository.save(courseEntity);
-        } else
+        } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Nu exista profesor cu id-ul: " + idProfessor);
+        }
     }
 
     public void updateCourse(int idCourse, UpdateCourseDTO updateCourseDTO) {
